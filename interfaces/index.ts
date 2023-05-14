@@ -4,11 +4,6 @@ export interface ApiReponse<T, D> {
   payload: D;
 }
 
-export type User = {
-  id: number;
-  name: string;
-};
-
 export interface StudyModel {
   id: number;
   category: 'FE' | 'BE' | 'APP';

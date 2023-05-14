@@ -47,6 +47,7 @@ const ListPage = () => {
         search: keyword,
       },
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyword]);
 
   useEffect(() => {

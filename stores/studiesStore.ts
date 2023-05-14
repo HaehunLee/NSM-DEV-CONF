@@ -1,5 +1,7 @@
 import { atom, AtomEffect } from 'recoil';
 
+import { StudyModel } from '../interfaces';
+
 const localStorageEffect: AtomEffect<[]> = ({ setSelf, onSet, node }) => {
   if (typeof window !== 'undefined') {
     const savedValue = window.localStorage.getItem(node.key);
@@ -17,7 +19,7 @@ const localStorageEffect: AtomEffect<[]> = ({ setSelf, onSet, node }) => {
   });
 };
 
-export const MyStudiesState = atom({
+export const MyStudiesState = atom<StudyModel[]>({
   key: 'MyStudiesState',
   default: [],
   effects: [localStorageEffect],
