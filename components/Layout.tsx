@@ -16,6 +16,7 @@ const Layout = ({ children, pageProps }: LayoutProps) => {
       </Head>
       <div
         css={css`
+          min-width: 1200px;
           padding: 0 160px;
         `}
       >

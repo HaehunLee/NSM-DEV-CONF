@@ -1,18 +1,20 @@
 import styled from '@emotion/styled';
 import { theme } from '../../styles/theme';
 import { css } from '@emotion/react';
+import { StudyModel } from '../../interfaces';
 
-const List = () => {
+interface ListProps {
+  item: StudyModel;
+}
+
+const List = ({ item }: ListProps) => {
   return (
     <Box>
       <Title>
-        <strong>FE&nbsp;</strong>
-        NEXT
+        <strong>{item.category}&nbsp;</strong>
+        {item.name}
       </Title>
-      <Content>
-        기본적인 프론트엔드 및 대한민국의 전반적인 리액트 트렌드를 반영한
-        컨퍼런스.
-      </Content>
+      <Content>{item.description}</Content>
       <PlusButton />
     </Box>
   );

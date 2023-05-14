@@ -4,7 +4,20 @@
 //
 // import { User } from 'path/to/interfaces';
 
+export interface ApiReponse<T, D> {
+  code: number;
+  meta?: T;
+  payload: D[];
+}
+
 export type User = {
-  id: number
-  name: string
+  id: number;
+  name: string;
+};
+
+export interface StudyModel {
+  id: number;
+  category: 'FE' | 'BE' | 'APP';
+  name: string;
+  description: string;
 }
