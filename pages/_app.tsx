@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import GlobalStyles from '../styles/GlobalStyles';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
+import { RecoilRoot } from 'recoil';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
@@ -23,12 +24,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <GlobalStyles />
-      <Layout pageProps={pageProps}>
-        <Component {...pageProps} />
-      </Layout>
-    </QueryClientProvider>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyles />
+        <Layout pageProps={pageProps}>
+          <Component {...pageProps} />
+        </Layout>
+      </QueryClientProvider>
+    </RecoilRoot>
   );
 }
 

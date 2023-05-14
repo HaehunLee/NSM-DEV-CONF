@@ -3,34 +3,46 @@ import { theme } from '../../styles/theme';
 import { css } from '@emotion/react';
 import { StudyModel } from '../../interfaces';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { MyStudiesState } from '../../stores/studiesStore';
 
 interface ListProps {
   item: StudyModel;
 }
 
 const List = ({ item }: ListProps) => {
+  const [myList, setMyList] = useRecoilState(MyStudiesState);
   const [isAdded, setIsAdded] = useState(false);
 
   const handleAdded = () => {
+    if (myList) {
+      setMyList((prev) => {
+        const newList = [...prev, item];
+        return newList;
+      });
+    } else {
+      setMyList([item]);
+    }
     setIsAdded(true);
   };
   const handleInAdded = () => {
-    setIsAdded(false);
+    if (myList) {
+      setMyList((prev) => {
+        const newList = prev.filter((prev) => prev.id !== item.id);
+        return newList;
+      });
+      setIsAdded(false);
+    }
   };
 
   useEffect(() => {
-    const strPrevList = localStorage.getItem('myList');
-    if (strPrevList) {
-      let prevList = JSON.parse(strPrevList);
-
-      if (prevList) {
-        const prev = prevList.find((prevItem) => prevItem.id === item.id);
-        if (prev) {
-          setIsAdded(true);
-        }
+    if (myList) {
+      const prev = myList.find((prevItem) => prevItem.id === item.id);
+      if (prev) {
+        setIsAdded(true);
       }
     }
-  }, []);
+  }, [myList]);
 
   return (
     <Box>
@@ -40,9 +52,9 @@ const List = ({ item }: ListProps) => {
       </Title>
       <Content>{item.description}</Content>
       {isAdded ? (
-        <MinusButton item={item} onInAdded={handleInAdded} />
+        <MinusButton onInAdded={handleInAdded} />
       ) : (
-        <PlusButton item={item} onAdded={handleAdded} />
+        <PlusButton onAdded={handleAdded} />
       )}
     </Box>
   );
@@ -81,31 +93,7 @@ const Content = styled.p`
   color: #ffffff;
 `;
 
-const PlusButton = ({
-  item,
-  onAdded,
-}: {
-  item: StudyModel;
-  onAdded: () => void;
-}) => {
-  const handleClick = () => {
-    const strPrevList = localStorage.getItem('myList');
-    let prevList = [];
-    if (strPrevList) {
-      prevList = JSON.parse(strPrevList);
-
-      if (prevList) {
-        prevList.push(item);
-      } else {
-        prevList = [item];
-      }
-    } else {
-      prevList = [item];
-    }
-
-    localStorage.setItem('myList', JSON.stringify(prevList));
-    onAdded();
-  };
+const PlusButton = ({ onAdded }: { onAdded: () => void }) => {
   return (
     <button
       css={css`
@@ -118,7 +106,7 @@ const PlusButton = ({
 
         background-color: ${theme.colors.핑쿠핑크};
       `}
-      onClick={handleClick}
+      onClick={onAdded}
     >
       <svg
         width='16'
@@ -146,27 +134,11 @@ const PlusButton = ({
   );
 };
 
-const MinusButton = ({
-  item,
-  onInAdded,
-}: {
-  item: StudyModel;
-  onInAdded: () => void;
-}) => {
+const MinusButton = ({ onInAdded }: { onInAdded: () => void }) => {
   const handleClick = () => {
     const confirmed = confirm('담은 강의를 취소하시겠습니까?');
     if (confirmed) {
-      const strPrevList = localStorage.getItem('myList');
-      let prevList = [];
-      if (strPrevList) {
-        prevList = JSON.parse(strPrevList);
-
-        if (prevList) {
-          const newList = prevList.filter((prev) => prev.id !== item.id);
-          localStorage.setItem('myList', JSON.stringify(newList));
-          onInAdded();
-        }
-      }
+      onInAdded();
     }
   };
 

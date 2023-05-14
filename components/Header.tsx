@@ -10,7 +10,9 @@ const Header = () => {
       <Content>
         <IconLogo />
         <RightArea>
-          <Button design='핑쿠핑크'>내 강의</Button>
+          <Link href='/my-list'>
+            <Button design='핑쿠핑크'>내 강의</Button>
+          </Link>
           <Link href='/list'>
             <Button>강의 목록</Button>
           </Link>
