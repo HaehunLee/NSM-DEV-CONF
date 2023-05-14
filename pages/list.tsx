@@ -101,6 +101,7 @@ const Wrapper = styled.div`
   gap: 60px;
 
   > h1 {
+    font-family: 'neurimbo Gothic';
     font-weight: 400;
     font-size: 160px;
     line-height: 79%;
