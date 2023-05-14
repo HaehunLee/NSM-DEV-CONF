@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { IconLogo } from './atoms/icons';
 import Button from './atoms/Button';
 import { theme } from '../styles/theme';
+import Link from 'next/link';
 
 const Header = () => {
   return (
@@ -10,7 +11,9 @@ const Header = () => {
         <IconLogo />
         <RightArea>
           <Button design='핑쿠핑크'>내 강의</Button>
-          <Button>강의 목록</Button>
+          <Link href='/list'>
+            <Button>강의 목록</Button>
+          </Link>
         </RightArea>
       </Content>
       <Line />
