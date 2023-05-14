@@ -5,14 +5,14 @@ const style = css`
   @font-face {
     font-family: 'neurimbo Gothic';
     font-weight: 400;
-    src: url('/fonts/Pretendard-Bold.otf') format('otf');
+    src: url('/fonts/neurimboGothicRegular.otf') format('opentype');
     font-display: fallback;
   }
 
   @font-face {
     font-family: 'Pretendard';
     font-weight: 500;
-    src: url('/fonts/Pretendard-Medium.otf') format('otf');
+    src: url('/fonts/Pretendard-Medium.otf') format('opentype');
     font-display: fallback;
   }
 

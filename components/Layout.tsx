@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Header from './Header';
+import { css } from '@emotion/react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -13,7 +14,11 @@ const Layout = ({ children, pageProps }: LayoutProps) => {
       <Head>
         <title>개발중</title>
       </Head>
-      <div>
+      <div
+        css={css`
+          padding: 0 160px;
+        `}
+      >
         <Header />
         <main>{children}</main>
       </div>
