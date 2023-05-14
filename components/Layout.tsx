@@ -1,7 +1,7 @@
-import { AppProps } from 'next/app';
-import Head from 'next/head';
-import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
+import { AppProps } from 'next/app';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
 
 const Header = dynamic(() => import('../components/Header'), { ssr: false });
 

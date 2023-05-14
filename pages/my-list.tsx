@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import { theme } from '../styles/theme';
-import List from '../components/molecules/List';
 import { useRecoilValue } from 'recoil';
-import { MyStudiesState } from '../stores/studiesStore';
-import useMounted from '../hooks/useMounted';
+
+import List from '../components/molecules/List';
 import Spinner from '../components/molecules/Spinner';
+import useMounted from '../hooks/useMounted';
+import { MyStudiesState } from '../stores/studiesStore';
+import { theme } from '../styles/theme';
 
 const MyListPage = () => {
   const mounted = useMounted();

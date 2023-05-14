@@ -1,13 +1,20 @@
 import styled from '@emotion/styled';
-import { theme } from '../styles/theme';
+import { useRouter } from 'next/router';
+import {
+  ChangeEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+
+import { IconSearch } from '../components/atoms/icons';
 import Dropdown from '../components/molecules/Dropdown';
 import InputGroup from '../components/molecules/InputGroup';
-import { IconSearch } from '../components/atoms/icons';
 import List from '../components/molecules/List';
-import { useStuides } from '../hooks/queries/studiesQuery';
-import { useRouter } from 'next/router';
-import { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import Spinner from '../components/molecules/Spinner';
+import { useStuides } from '../hooks/queries/studiesQuery';
+import { theme } from '../styles/theme';
 
 const ListPage = () => {
   const { data, isLoading } = useStuides();
@@ -32,7 +39,7 @@ const ListPage = () => {
     setKeyword(e.currentTarget.value);
   };
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     push({
       pathname: '/list',
       query: {
@@ -40,7 +47,7 @@ const ListPage = () => {
         search: keyword,
       },
     });
-  };
+  }, [keyword, push, query]);
 
   useEffect(() => {
     if (timerRef.current) {
@@ -56,7 +63,7 @@ const ListPage = () => {
         clearTimeout(timerRef.current);
       }
     };
-  }, [keyword]);
+  }, [handleSearch, keyword]);
 
   return (
     <Wrapper>

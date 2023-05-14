@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { theme } from '../../styles/theme';
-import { StudyModel } from '../../interfaces';
-import { MouseEventHandler } from 'react';
 import { useRouter } from 'next/router';
+import { MouseEventHandler } from 'react';
+
 import useCheckMyList from '../../hooks/useCheckMyList';
+import { StudyModel } from '../../interfaces';
+import { theme } from '../../styles/theme';
 
 interface ListProps {
   item: StudyModel;

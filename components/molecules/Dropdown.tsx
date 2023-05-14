@@ -7,7 +7,7 @@ export interface SelectProps {
   isError?: boolean;
 }
 
-export const Dropdown = styled.select`
+const Dropdown = styled.select`
   width: 144px;
   height: 38px;
 

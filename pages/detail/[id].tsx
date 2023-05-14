@@ -1,16 +1,17 @@
 import styled from '@emotion/styled';
-import { theme } from '../../styles/theme';
-import { NextPageContext } from 'next';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
-import { getStudiesDetailAPI } from '../../apis/studies';
-import { ApiReponse, StudyDetailModel } from '../../interfaces';
-import { useStudiesDetail } from '../../hooks/queries/studiesQuery';
-import Button from '../../components/atoms/Button';
 import dayjs from 'dayjs';
+import { NextPageContext } from 'next';
 import { useRouter } from 'next/router';
-import useCheckMyList from '../../hooks/useCheckMyList';
+
+import { getStudiesDetailAPI } from '../../apis/studies';
+import Button from '../../components/atoms/Button';
 import Item from '../../components/molecules/Item';
 import Spinner from '../../components/molecules/Spinner';
+import { useStudiesDetail } from '../../hooks/queries/studiesQuery';
+import useCheckMyList from '../../hooks/useCheckMyList';
+import { ApiReponse, StudyDetailModel } from '../../interfaces';
+import { theme } from '../../styles/theme';
 
 const DetailPage = () => {
   const { query } = useRouter();

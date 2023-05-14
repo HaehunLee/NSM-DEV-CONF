@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
-import { IconLogo } from './atoms/icons';
-import Button from './atoms/Button';
-import { theme } from '../styles/theme';
 import Link from 'next/link';
-import { useRecoilValue } from 'recoil';
-import { MyStudiesState } from '../stores/studiesStore';
 import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
+
+import Button from './atoms/Button';
+import { IconLogo } from './atoms/icons';
+import { MyStudiesState } from '../stores/studiesStore';
+import { theme } from '../styles/theme';
 
 const Header = () => {
   const router = useRouter();

@@ -1,5 +1,6 @@
-import BgText from '../components/organisms/BgText';
 import styled from '@emotion/styled';
+
+import BgText from '../components/organisms/BgText';
 import { theme } from '../styles/theme';
 
 const IndexPage = () => (

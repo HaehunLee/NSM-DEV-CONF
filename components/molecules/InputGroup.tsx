@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import {
   ReactNode,
   InputHTMLAttributes,
@@ -5,7 +6,6 @@ import {
   MouseEventHandler,
 } from 'react';
 
-import styled from '@emotion/styled';
 import Input from '../atoms/Input';
 
 interface InputGroupProps {
@@ -15,7 +15,6 @@ interface InputGroupProps {
 }
 
 const InputGroup = ({
-  width,
   rightIcon,
   onClick,
   onKeyDown,

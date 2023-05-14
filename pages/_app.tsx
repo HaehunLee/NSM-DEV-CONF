@@ -1,10 +1,10 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
+import { useState } from 'react';
+import { RecoilRoot } from 'recoil';
 
 import Layout from '../components/Layout';
 import GlobalStyles from '../styles/GlobalStyles';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useState } from 'react';
-import { RecoilRoot } from 'recoil';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
