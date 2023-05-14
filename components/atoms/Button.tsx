@@ -1,8 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { theme } from 'styles/theme';
+import { theme } from '../../styles/theme';
 
 const Button = styled.button<{ design?: '핑쿠핑크' }>`
+  width: fit-content;
+
   display: flex;
   justify-content: center;
   align-items: center;

@@ -7,7 +7,7 @@
 export interface ApiReponse<T, D> {
   code: number;
   meta?: T;
-  payload: D[];
+  payload: D;
 }
 
 export type User = {
@@ -20,4 +20,12 @@ export interface StudyModel {
   category: 'FE' | 'BE' | 'APP';
   name: string;
   description: string;
+}
+
+export interface StudyDetailModel extends StudyModel {
+  location: string;
+  startDateTime: string;
+  endDateTime: string;
+  speaker: string[];
+  stack: string[];
 }

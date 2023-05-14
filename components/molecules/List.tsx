@@ -5,48 +5,28 @@ import { StudyModel } from '../../interfaces';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { MyStudiesState } from '../../stores/studiesStore';
+import { useRouter } from 'next/router';
+import useCheckMyList from '../../hooks/useCheckMyList';
 
 interface ListProps {
   item: StudyModel;
 }
 
 const List = ({ item }: ListProps) => {
-  const [myList, setMyList] = useRecoilState(MyStudiesState);
-  const [isAdded, setIsAdded] = useState(false);
+  const router = useRouter();
+
+  const { isAdded, onAdded, onInAdded } = useCheckMyList(item.id);
 
   const handleAdded = () => {
-    if (myList) {
-      setMyList((prev) => {
-        const newList = [...prev, item];
-        return newList;
-      });
-    } else {
-      setMyList([item]);
-    }
-    setIsAdded(true);
+    onAdded(item);
   };
   const handleInAdded = () => {
-    if (myList) {
-      setMyList((prev) => {
-        const newList = prev.filter((prev) => prev.id !== item.id);
-        return newList;
-      });
-      setIsAdded(false);
-    }
+    onInAdded(item);
   };
-
-  useEffect(() => {
-    if (myList) {
-      const prev = myList.find((prevItem) => prevItem.id === item.id);
-      if (prev) {
-        setIsAdded(true);
-      }
-    }
-  }, [myList]);
 
   return (
     <Box>
-      <Title>
+      <Title onClick={() => router.push(`/detail/${item.id}`)}>
         <strong>{item.category}&nbsp;</strong>
         {item.name}
       </Title>
@@ -135,13 +115,6 @@ const PlusButton = ({ onAdded }: { onAdded: () => void }) => {
 };
 
 const MinusButton = ({ onInAdded }: { onInAdded: () => void }) => {
-  const handleClick = () => {
-    const confirmed = confirm('담은 강의를 취소하시겠습니까?');
-    if (confirmed) {
-      onInAdded();
-    }
-  };
-
   return (
     <button
       css={css`
@@ -154,7 +127,7 @@ const MinusButton = ({ onInAdded }: { onInAdded: () => void }) => {
 
         background-color: ${theme.colors.연한쁠루블루};
       `}
-      onClick={handleClick}
+      onClick={onInAdded}
     >
       <svg
         width='16'

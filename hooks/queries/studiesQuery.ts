@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { getStudiesAPI } from '../../apis/studies';
+import { getStudiesAPI, getStudiesDetailAPI } from '../../apis/studies';
 
 export const useStuides = () => {
   const { query } = useRouter();
@@ -12,6 +12,18 @@ export const useStuides = () => {
     getStudiesAPI({
       search,
       category,
+    }),
+  );
+};
+
+export const useStudiesDetail = () => {
+  const { query } = useRouter();
+
+  const id = Number(query?.id);
+
+  return useQuery(['DETAIL', id], () =>
+    getStudiesDetailAPI({
+      id,
     }),
   );
 };

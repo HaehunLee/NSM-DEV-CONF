@@ -1,4 +1,4 @@
-import { ApiReponse, StudyModel } from '../interfaces';
+import { ApiReponse, StudyDetailModel, StudyModel } from '../interfaces';
 import instance from './instance';
 
 export const getStudiesAPI = async ({
@@ -9,7 +9,7 @@ export const getStudiesAPI = async ({
   search?: string;
 }) => {
   try {
-    const res: ApiReponse<{ meta: { total: Number } }, StudyModel> =
+    const res: ApiReponse<{ meta: { total: Number } }, StudyModel[]> =
       await instance.get('/studies', {
         params: {
           category,
@@ -19,6 +19,18 @@ export const getStudiesAPI = async ({
     return res;
   } catch (e) {
     console.log('getStudiesAPI Error:', e);
+    throw e;
+  }
+};
+
+export const getStudiesDetailAPI = async ({ id }: { id: number }) => {
+  try {
+    const res: ApiReponse<null, StudyDetailModel> = await instance.get(
+      `/studies/${id}`,
+    );
+    return res;
+  } catch (e) {
+    console.log('getStudiesDetailAPI Error:', e);
     throw e;
   }
 };

@@ -3,15 +3,19 @@ import { IconLogo } from './atoms/icons';
 import Button from './atoms/Button';
 import { theme } from '../styles/theme';
 import Link from 'next/link';
+import { useRecoilValue } from 'recoil';
+import { MyStudiesState } from '../stores/studiesStore';
 
 const Header = () => {
+  const myList = useRecoilValue(MyStudiesState);
+
   return (
     <Title>
       <Content>
         <IconLogo />
         <RightArea>
           <Link href='/my-list'>
-            <Button design='핑쿠핑크'>내 강의</Button>
+            <Button design='핑쿠핑크'>{`내 강의 {${myList.length}}`}</Button>
           </Link>
           <Link href='/list'>
             <Button>강의 목록</Button>
@@ -38,6 +42,8 @@ const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  padding-top: 14px;
 `;
 
 const RightArea = styled.div`

@@ -1,13 +1,7 @@
 import styled from '@emotion/styled';
 import { theme } from '../styles/theme';
 import { css } from '@emotion/react';
-import Dropdown from '../components/molecules/Dropdown';
-import InputGroup from '../components/molecules/Input';
-import { IconSearch } from '../components/atoms/icons';
 import List from '../components/molecules/List';
-import { useStuides } from '../hooks/queries/studiesQuery';
-import { useRouter } from 'next/router';
-import { ChangeEventHandler, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { MyStudiesState } from '../stores/studiesStore';
 
