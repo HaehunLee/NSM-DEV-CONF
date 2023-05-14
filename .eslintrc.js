@@ -4,48 +4,54 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "next/core-web-vitals",
-    "plugin:import/typescript",
-    "plugin:import/recommended",
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'next/core-web-vitals',
+    'plugin:import/typescript',
+    'plugin:import/recommended',
   ],
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: "latest",
-    sourceType: "module",
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
-  plugins: ["react", "@typescript-eslint", "prettier"],
+  plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
-    "import/order": [
-      "error",
+    'import/order': [
+      'error',
       {
-        groups: ["builtin", "external", ["parent", "sibling"], "index"],
+        groups: ['builtin', 'external', ['parent', 'sibling'], 'index'],
         pathGroups: [
           {
-            pattern: "angular",
-            group: "external",
-            position: "before",
+            pattern: 'angular',
+            group: 'external',
+            position: 'before',
           },
         ],
         alphabetize: {
-          order: "asc",
+          order: 'asc',
           caseInsensitive: true,
         },
-        "newlines-between": "always",
+        'newlines-between': 'always',
       },
     ],
   },
+  'prettier/prettier': [
+    'error',
+    {
+      jsxSingleQuote: true, // prettier jsx single quote 사용을 위한 세팅
+    },
+  ],
   settings: {
     react: {
-      version: "detect",
+      version: 'detect',
     },
-    "import/resolver": {
+    'import/resolver': {
       typescript: {
         alwaysTryTypes: true,
       },
