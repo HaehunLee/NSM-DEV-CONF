@@ -1,22 +1,22 @@
 import styled from '@emotion/styled';
 import { theme } from '../styles/theme';
-import { css } from '@emotion/react';
 import Dropdown from '../components/molecules/Dropdown';
-import InputGroup from '../components/molecules/Input';
+import InputGroup from '../components/molecules/InputGroup';
 import { IconSearch } from '../components/atoms/icons';
 import List from '../components/molecules/List';
 import { useStuides } from '../hooks/queries/studiesQuery';
 import { useRouter } from 'next/router';
-import { ChangeEventHandler, useEffect, useState } from 'react';
+import { ChangeEventHandler, useEffect, useRef, useState } from 'react';
+import Spinner from '../components/molecules/Spinner';
 
 const ListPage = () => {
   const { data, isLoading } = useStuides();
   const { query, push } = useRouter();
 
   const category = (query?.category as 'FE' | 'BE' | 'APP') || undefined;
-  const search = (query?.search as string) || undefined;
+  const search = (query?.search as string) || '';
 
-  const [timer, setTimer] = useState<number | null>(null);
+  const timerRef = useRef<number>(null);
   const [keyword, setKeyword] = useState(search);
 
   const handleCategoryChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
@@ -32,48 +32,39 @@ const ListPage = () => {
     setKeyword(e.currentTarget.value);
   };
 
-  useEffect(() => {
-    return () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
-    };
-  }, [timer]);
+  const handleSearch = () => {
+    push({
+      pathname: '/list',
+      query: {
+        ...query,
+        search: keyword,
+      },
+    });
+  };
 
   useEffect(() => {
-    if (timer) {
-      clearTimeout(timer);
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
     }
 
-    setTimer(
-      window.setTimeout(() => {
-        push({
-          pathname: '/list',
-          query: {
-            ...query,
-            search: keyword,
-          },
-        });
-        setTimer(null);
-      }, 250),
-    );
+    timerRef.current = window.setTimeout(() => {
+      handleSearch();
+    }, 250);
+
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
   }, [keyword]);
 
   return (
-    <div
-      css={css`
-        padding: 60px 0;
-
-        display: flex;
-        flex-direction: column;
-        gap: 60px;
-      `}
-    >
-      <H1>
+    <Wrapper>
+      <h1>
         CONF.
         <br />
         <strong>LIST</strong>
-      </H1>
+      </h1>
       <Content>
         <ListHeader>
           <Dropdown onChange={handleCategoryChange} value={category}>
@@ -86,32 +77,39 @@ const ListPage = () => {
             placeholder='검색하세요.'
             value={keyword}
             onChange={handleSearchChange}
+            onClick={handleSearch}
             rightIcon={<IconSearch width='18px' height='18px' />}
           />
         </ListHeader>
         {isLoading ? (
-          <div>loading..</div>
+          <Spinner size='50px' />
         ) : (
           data?.payload?.map((item) => <List key={item.id} item={item} />)
         )}
       </Content>
-    </div>
+    </Wrapper>
   );
 };
 
 export default ListPage;
 
-const H1 = styled.h1`
-  font-family: 'neurimbo Gothic';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 160px;
-  line-height: 79%;
+const Wrapper = styled.div`
+  padding: 60px 0;
 
-  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 
-  strong {
-    color: ${theme.colors.핑쿠핑크};
+  > h1 {
+    font-weight: 400;
+    font-size: 160px;
+    line-height: 79%;
+
+    color: #ffffff;
+
+    strong {
+      color: ${theme.colors.핑쿠핑크};
+    }
   }
 `;
 

@@ -1,7 +1,9 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import Header from './Header';
-import { css } from '@emotion/react';
+import dynamic from 'next/dynamic';
+import styled from '@emotion/styled';
+
+const Header = dynamic(() => import('../components/Header'), { ssr: false });
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,11 +11,12 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, pageProps }: LayoutProps) => {
-  const pageTitle = pageProps?.title ? `${pageProps?.title}` : '기본';
+  const pageTitle = pageProps?.title ? `${pageProps?.title}` : 'NSM DEV CONF';
   const pageDescription = pageProps?.description
     ? `${pageProps?.description}`
-    : '기본';
-  const pageImage = pageProps?.pageImage ? `${pageProps?.pageImage}` : '기본';
+    : 'This site is NSM DEV CONF';
+  const pageImage =
+    'https://raw.githubusercontent.com/dus532/storage_home/main/thumb.png';
 
   return (
     <>
@@ -31,17 +34,17 @@ const Layout = ({ children, pageProps }: LayoutProps) => {
         <meta property='og:image:width' content='1200' />
         <meta property='og:image:height' content='630' />
       </Head>
-      <div
-        css={css`
-          min-width: 1200px;
-          padding: 0 160px;
-        `}
-      >
+      <Root>
         <Header />
         <main>{children}</main>
-      </div>
+      </Root>
     </>
   );
 };
 
 export default Layout;
+
+const Root = styled.div`
+  min-width: 1200px;
+  padding: 0 160px;
+`;

@@ -5,17 +5,23 @@ import { theme } from '../styles/theme';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 import { MyStudiesState } from '../stores/studiesStore';
+import { useRouter } from 'next/router';
 
 const Header = () => {
+  const router = useRouter();
   const myList = useRecoilValue(MyStudiesState);
+
+  const handleLogoClick = () => {
+    router.push('/');
+  };
 
   return (
     <Title>
       <Content>
-        <IconLogo />
+        <IconLogo onClick={handleLogoClick} />
         <RightArea>
           <Link href='/my-list'>
-            <Button design='핑쿠핑크'>{`내 강의 {${myList.length}}`}</Button>
+            <Button design='핑쿠핑크'>{`내 강의 {${myList?.length}}`}</Button>
           </Link>
           <Link href='/list'>
             <Button>강의 목록</Button>
@@ -36,6 +42,10 @@ const Title = styled.div`
 
   width: 100%;
   height: 100px;
+
+  > svg {
+    cursor: pointer;
+  }
 `;
 
 const Content = styled.div`

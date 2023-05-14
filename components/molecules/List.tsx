@@ -1,10 +1,7 @@
 import styled from '@emotion/styled';
 import { theme } from '../../styles/theme';
-import { css } from '@emotion/react';
 import { StudyModel } from '../../interfaces';
-import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { MyStudiesState } from '../../stores/studiesStore';
+import { MouseEventHandler } from 'react';
 import { useRouter } from 'next/router';
 import useCheckMyList from '../../hooks/useCheckMyList';
 
@@ -17,16 +14,18 @@ const List = ({ item }: ListProps) => {
 
   const { isAdded, onAdded, onInAdded } = useCheckMyList(item.id);
 
-  const handleAdded = () => {
+  const handleAdded: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
     onAdded(item);
   };
-  const handleInAdded = () => {
+  const handleInAdded: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
     onInAdded(item);
   };
 
   return (
-    <Box>
-      <Title onClick={() => router.push(`/detail/${item.id}`)}>
+    <Box onClick={() => router.push(`/detail/${item.id}`)}>
+      <Title>
         <strong>{item.category}&nbsp;</strong>
         {item.name}
       </Title>
@@ -43,6 +42,7 @@ const List = ({ item }: ListProps) => {
 export default List;
 
 const Box = styled.div`
+  cursor: pointer;
   display: flex;
   align-items: flex-end;
 
@@ -73,21 +73,24 @@ const Content = styled.p`
   color: #ffffff;
 `;
 
-const PlusButton = ({ onAdded }: { onAdded: () => void }) => {
+const ActionButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 32px;
+  height: 32px;
+
+  background-color: ${theme.colors.핑쿠핑크};
+`;
+
+const PlusButton = ({
+  onAdded,
+}: {
+  onAdded: MouseEventHandler<HTMLButtonElement>;
+}) => {
   return (
-    <button
-      css={css`
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        width: 32px;
-        height: 32px;
-
-        background-color: ${theme.colors.핑쿠핑크};
-      `}
-      onClick={onAdded}
-    >
+    <ActionButton onClick={onAdded}>
       <svg
         width='16'
         height='16'
@@ -110,25 +113,17 @@ const PlusButton = ({ onAdded }: { onAdded: () => void }) => {
           strokeLinejoin='round'
         />
       </svg>
-    </button>
+    </ActionButton>
   );
 };
 
-const MinusButton = ({ onInAdded }: { onInAdded: () => void }) => {
+const MinusButton = ({
+  onInAdded,
+}: {
+  onInAdded: MouseEventHandler<HTMLButtonElement>;
+}) => {
   return (
-    <button
-      css={css`
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        width: 32px;
-        height: 32px;
-
-        background-color: ${theme.colors.연한쁠루블루};
-      `}
-      onClick={onInAdded}
-    >
+    <ActionButton onClick={onInAdded}>
       <svg
         width='16'
         height='2'
@@ -144,6 +139,6 @@ const MinusButton = ({ onInAdded }: { onInAdded: () => void }) => {
           strokeLinejoin='round'
         />
       </svg>
-    </button>
+    </ActionButton>
   );
 };

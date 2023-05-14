@@ -1,50 +1,55 @@
 import styled from '@emotion/styled';
 import { theme } from '../styles/theme';
-import { css } from '@emotion/react';
 import List from '../components/molecules/List';
 import { useRecoilValue } from 'recoil';
 import { MyStudiesState } from '../stores/studiesStore';
+import useMounted from '../hooks/useMounted';
+import Spinner from '../components/molecules/Spinner';
 
 const MyListPage = () => {
+  const mounted = useMounted();
   const myList = useRecoilValue(MyStudiesState);
 
+  if (!mounted) return <Spinner size='50px' />;
   return (
-    <div
-      css={css`
-        padding: 60px 0;
-
-        display: flex;
-        flex-direction: column;
-        gap: 60px;
-      `}
-    >
-      <H1>
+    <Wrapper>
+      <h1>
         MY
         <br />
         <strong>{`CONF {${myList?.length}}`}</strong>
-      </H1>
+      </h1>
       <Content>
-        {myList?.map((item) => (
-          <List key={item.id} item={item} />
-        ))}
+        {myList?.length === 0 ? (
+          <div>없는데요?</div>
+        ) : (
+          myList?.map((item) => <List key={item.id} item={item} />)
+        )}
       </Content>
-    </div>
+    </Wrapper>
   );
 };
 
 export default MyListPage;
 
-const H1 = styled.h1`
-  font-family: 'neurimbo Gothic';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 160px;
-  line-height: 79%;
+const Wrapper = styled.div`
+  padding: 60px 0;
 
-  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 
-  strong {
-    color: ${theme.colors.핑쿠핑크};
+  > h1 {
+    font-family: 'neurimbo Gothic';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 160px;
+    line-height: 79%;
+
+    color: #ffffff;
+
+    strong {
+      color: ${theme.colors.핑쿠핑크};
+    }
   }
 `;
 
@@ -52,9 +57,4 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-`;
-
-const ListHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
 `;

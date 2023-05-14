@@ -3,53 +3,41 @@ import styled from '@emotion/styled';
 
 const BgText = () => {
   return (
-    <div
-      css={css`
-        position: absolute;
-        width: 914px;
-        height: 672px;
-      `}
-    >
-      <Text
-        css={css`
-          left: 0px;
-        `}
-      >
+    <Wrapper>
+      <Text>
         NSM
         <br />
         <strong>DEV</strong>
         <br />
         CONF.
       </Text>
-      <Text
-        css={css`
-          left: 59px;
-        `}
-      >
+      <Text left='59px'>
         NSM
         <br />
         <strong>DEV</strong>
         <br />
         CONF.
       </Text>
-      <Text
-        css={css`
-          left: 114px;
-        `}
-      >
+      <Text left='114px'>
         NSM
         <br />
         <strong>DEV</strong>
         <br />
         CONF.
       </Text>
-    </div>
+    </Wrapper>
   );
 };
 
 export default BgText;
 
-const Text = styled.span`
+const Wrapper = styled.div`
+  position: absolute;
+  width: 914px;
+  height: 672px;
+`;
+
+const Text = styled.span<{ left?: string }>`
   position: absolute;
   width: 800px;
   height: 672px;
@@ -67,4 +55,13 @@ const Text = styled.span`
   strong {
     color: black;
   }
+
+  ${({ left }) =>
+    left
+      ? css`
+          left: ${left};
+        `
+      : css`
+          left: 0px;
+        `}
 `;

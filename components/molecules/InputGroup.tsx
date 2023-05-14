@@ -3,10 +3,10 @@ import {
   InputHTMLAttributes,
   KeyboardEventHandler,
   MouseEventHandler,
-  RefObject,
 } from 'react';
 
 import styled from '@emotion/styled';
+import Input from '../atoms/Input';
 
 interface InputGroupProps {
   rightIcon: ReactNode;
@@ -42,18 +42,6 @@ const Div = styled.div`
   padding: 10px 16px;
 
   border: 1px solid #ffffff;
-`;
-
-const Input = styled.input`
-  font-size: 18px;
-  color: white;
-  background-color: transparent;
-  border: none;
-  outline: 0;
-
-  :placeholder-shown {
-    color: rgba(255, 255, 255, 0.5);
-  }
 `;
 
 const Icon = styled.div``;
