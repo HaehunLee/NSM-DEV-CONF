@@ -47,7 +47,7 @@ const ListPage = () => {
         search: keyword,
       },
     });
-  }, [keyword, push, query]);
+  }, [keyword]);
 
   useEffect(() => {
     if (timerRef.current) {

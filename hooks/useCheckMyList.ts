@@ -1,7 +1,8 @@
-import { useRecoilState } from 'recoil';
-import { MyStudiesState } from '../stores/studiesStore';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+
 import { StudyModel } from '../interfaces';
+import { MyStudiesState } from '../stores/studiesStore';
 
 const useCheckMyList = (id: number) => {
   const [myList, setMyList] = useRecoilState(MyStudiesState);

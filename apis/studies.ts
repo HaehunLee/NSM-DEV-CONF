@@ -1,5 +1,5 @@
-import { ApiReponse, StudyDetailModel, StudyModel } from '../interfaces';
 import instance from './instance';
+import { ApiReponse, StudyDetailModel, StudyModel } from '../interfaces';
 
 export const getStudiesAPI = async ({
   category,
@@ -9,7 +9,7 @@ export const getStudiesAPI = async ({
   search?: string;
 }) => {
   try {
-    const res: ApiReponse<{ meta: { total: Number } }, StudyModel[]> =
+    const res: ApiReponse<{ meta: { total: number } }, StudyModel[]> =
       await instance.get('/studies', {
         params: {
           category,
